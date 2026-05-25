@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Auth view (shown when logged out) -->
+  <div id="auth-view">
+    <!-- Login form -->
+    <!-- Link to switch to signup form -->
+    <!-- Signup form -->
+  </div>
+
+  <!-- Main view (shown when logged in) -->
+  <div id="main-view" hidden>
+    <!-- Header: app name + dashboard button + logout button -->
+    <header>
+      <span class="app-title">BookmarkSync</span>
+      <button id="btn-dashboard" title="Open Dashboard">⊞</button>
+      <button id="btn-logout">Logout</button>
+    </header>
+
+    <!-- Quick add current tab -->
+    <div id="quick-add">
+      <button id="btn-quick-add">+ Add Current Tab</button>
+    </div>
+
+    <!-- Add / Edit form (collapsible) -->
+    <div id="form-section">
+      <input id="input-title"    placeholder="Title">
+      <input id="input-url"      placeholder="URL">
+      <input id="input-category" placeholder="Category">
+      <textarea id="input-desc"  placeholder="Notes (optional)"></textarea>
+      <button id="btn-save">Save</button>
+      <button id="btn-cancel" hidden>Cancel</button>
+    </div>
+
+    <!-- Search -->
+    <input id="search-input" placeholder="Search bookmarks...">
+
+    <!-- Bookmark list -->
+    <div id="bookmark-list">
+      <!-- Populated by popup.js -->
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+  <script src="auth.js"></script>
+  <script src="storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
