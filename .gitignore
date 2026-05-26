@@ -1,8 +1,8 @@
 # Dependencies
-backend/node_modules/
+bookmarksync/backend/node_modules/
 
 # Environment variables
-backend/.env
+bookmarksync/backend/.env
 
 # Logs
 *.log
