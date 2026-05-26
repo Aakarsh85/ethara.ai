@@ -1,12 +1,5 @@
-# Dependencies
-bookmarksync/backend/node_modules/
-
-# Environment variables
-bookmarksync/backend/.env
-
-# Logs
+node_modules/
+.env
 *.log
-
-# OS files
 .DS_Store
 Thumbs.db
