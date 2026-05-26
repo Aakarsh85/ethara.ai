@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BookmarkSync - Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: { extend: {
+      colors: {
+        "surface-container-highest":"#e2e2e2","on-secondary-container":"#636262","on-secondary":"#ffffff",
+        "on-primary-fixed":"#00174b","dark-text-muted":"#888888","secondary-fixed":"#e5e2e1",
+        "text-muted":"#666666","danger":"#dc2626","error-container":"#ffdad6","background":"#f9f9f9",
+        "inverse-surface":"#2f3131","dark-surface":"#1e1e1e","dark-text":"#f0f0f0",
+        "primary-fixed-dim":"#b4c5ff","surface-container-high":"#e8e8e8","success":"#16a34a",
+        "dark-border":"#2e2e2e","surface":"#ffffff","surface-variant":"#e2e2e2",
+        "on-error-container":"#93000a","secondary-container":"#e2dfde","surface-container-lowest":"#ffffff",
+        "dark-background":"#111111","surface-container":"#eeeeee","on-secondary-fixed":"#1c1b1b",
+        "secondary-fixed-dim":"#c8c6c5","tertiary-fixed-dim":"#ffb596","error":"#ba1a1a",
+        "surface-dim":"#dadada","on-primary-fixed-variant":"#003ea8","primary":"#004ac6",
+        "tertiary-fixed":"#ffdbcd","on-error":"#ffffff","inverse-on-surface":"#f1f1f1",
+        "inverse-primary":"#b4c5ff","on-tertiary-container":"#ffede6","surface-bright":"#f9f9f9",
+        "border":"#e0e0e0","on-surface":"#1a1c1c","tertiary":"#943700","tertiary-container":"#bc4800",
+        "on-background":"#1a1c1c","on-primary":"#ffffff","primary-fixed":"#dbe1ff",
+        "on-tertiary-fixed":"#360f00","surface-container-low":"#f3f3f3","outline":"#737686",
+        "outline-variant":"#c3c6d7","on-tertiary":"#ffffff","on-secondary-fixed-variant":"#474746",
+        "on-surface-variant":"#434655","on-primary-container":"#eeefff","secondary":"#5f5e5e",
+        "primary-container":"#2563eb","surface-tint":"#0053db","on-tertiary-fixed-variant":"#7d2d00"
+      },
+      borderRadius: { "DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem" },
+      spacing: { "max-content-width":"900px","extension-width":"360px","lg":"16px","md":"12px","sidebar-width":"220px","xl":"24px","base":"4px","tight":"8px" },
+      fontFamily: { "body-sm":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"],"body-base":["Inter"],"label-caps":["Inter"],"button":["Inter"] },
+      fontSize: {
+        "body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],
+        "headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],
+        "headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],
+        "body-base":["14px",{"lineHeight":"20px","fontWeight":"400"}],
+        "label-caps":["11px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"600"}],
+        "button":["14px",{"lineHeight":"20px","fontWeight":"500"}]
+      }
+    }}
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+  body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .toast { position:fixed; bottom:24px; right:24px; padding:10px 16px; border-radius:4px; font-size:13px; color:#fff; z-index:9999; }
+  .toast-success { background:#16a34a; } .toast-error { background:#dc2626; }
+</style>
+</head>
+<body class="bg-background text-on-surface">
+
+<!-- Sidebar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col pt-xl pb-lg w-sidebar-width border-r border-border bg-surface hidden md:flex z-50">
+  <div class="px-xl mb-xl">
+    <h1 class="text-headline-md font-headline-md font-bold text-primary">BookmarkSync</h1>
+    <p class="text-label-caps font-label-caps text-secondary uppercase tracking-widest mt-base">Power User Tools</p>
+  </div>
+  <nav class="flex-1 space-y-base px-tight">
+    <a href="../index.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high transition-colors text-secondary">
+      <span class="material-symbols-outlined">home</span><span class="text-body-base font-body-base">Home</span>
+    </a>
+    <a href="../index.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high transition-colors text-secondary">
+      <span class="material-symbols-outlined">bookmark</span><span class="text-body-base font-body-base">Bookmarks</span>
+    </a>
+    <a href="../index.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high transition-colors text-secondary">
+      <span class="material-symbols-outlined">folder</span><span class="text-body-base font-body-base">Collections</span>
+    </a>
+    <!-- Active: Settings -->
+    <a class="flex items-center gap-md px-md py-tight rounded text-primary font-bold border-r-2 border-primary bg-surface-container-low" href="#">
+      <span class="material-symbols-outlined">settings</span><span class="text-body-base font-body-base">Settings</span>
+    </a>
+    <a href="profile.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high transition-colors text-secondary">
+      <span class="material-symbols-outlined">person</span><span class="text-body-base font-body-base">Profile</span>
+    </a>
+  </nav>
+  <div class="mt-auto px-tight pt-lg border-t border-border">
+    <a href="help.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high text-secondary">
+      <span class="material-symbols-outlined">help</span><span class="text-body-sm font-body-sm">Help &amp; Support</span>
+    </a>
+    <button id="btn-logout" class="w-full flex items-center gap-md px-md py-tight rounded hover:bg-error-container text-danger">
+      <span class="material-symbols-outlined">logout</span><span class="text-body-sm font-body-sm">Logout</span>
+    </button>
+  </div>
+</aside>
+
+<!-- Main -->
+<main class="md:ml-sidebar-width min-h-screen flex flex-col">
+  <!-- Top Bar -->
+  <header class="h-16 border-b border-border bg-surface flex justify-between items-center px-xl w-full sticky top-0 z-40">
+    <div class="flex items-center gap-md">
+      <a href="../index.html" class="text-secondary hover:text-primary transition-colors flex items-center gap-base">
+        <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+        <span class="text-body-sm">Back to Dashboard</span>
+      </a>
+    </div>
+    <div class="flex items-center gap-lg">
+      <button id="btn-theme" class="p-tight hover:text-primary transition-colors" title="Toggle Theme">
+        <span class="material-symbols-outlined">contrast</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <div class="flex-1 p-xl max-w-max-content-width mx-auto w-full">
+    <div class="mb-xl">
+      <h2 class="text-headline-lg font-headline-lg text-on-surface">Settings</h2>
+      <p class="text-body-base font-body-base text-secondary mt-base">Manage your workspace environment and data synchronization.</p>
+    </div>
+
+    <div class="bento-grid">
+      <!-- Interface Preferences -->
+      <section class="col-span-12 md:col-span-7 bg-surface border border-border rounded-lg p-lg">
+        <div class="flex items-center gap-md mb-lg">
+          <span class="material-symbols-outlined text-primary">palette</span>
+          <h3 class="text-headline-md font-headline-md">Interface Preferences</h3>
+        </div>
+        <div class="space-y-lg">
+          <div class="flex items-center justify-between p-md bg-surface-container-low rounded border border-border">
+            <div>
+              <p class="text-body-base font-medium">Visual Theme</p>
+              <p class="text-body-sm text-secondary">Toggle between light and dark workspace modes.</p>
+            </div>
+            <div class="flex bg-surface-container-high rounded p-base gap-base">
+              <button id="theme-light" class="px-md py-base text-label-caps rounded bg-surface border border-border font-bold">Light</button>
+              <button id="theme-dark" class="px-md py-base text-label-caps rounded text-secondary hover:text-on-surface transition-colors">Dark</button>
+            </div>
+          </div>
+          <div class="flex items-center justify-between p-md bg-surface-container-low rounded border border-border">
+            <div>
+              <p class="text-body-base font-medium">API Base URL</p>
+              <p class="text-body-sm text-secondary">Backend server URL for cloud sync.</p>
+            </div>
+            <div class="flex gap-md items-center">
+              <input id="api-url-input" type="text" class="px-3 py-tight bg-surface border border-border rounded text-body-sm focus:outline-none focus:border-primary w-56" value="http://localhost:5000/api"/>
+              <button id="btn-save-api-url" class="px-md py-tight bg-primary text-on-primary rounded text-label-caps font-label-caps hover:opacity-90">Save</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Default Categories -->
+      <section class="col-span-12 md:col-span-5 bg-surface border border-border rounded-lg p-lg">
+        <div class="flex items-center gap-md mb-lg">
+          <span class="material-symbols-outlined text-primary">category</span>
+          <h3 class="text-headline-md font-headline-md">Default Categories</h3>
+        </div>
+        <div id="cat-list" class="space-y-tight">
+          <!-- populated by JS -->
+        </div>
+        <div class="flex gap-md mt-md">
+          <input id="new-cat-input" type="text" class="flex-1 px-3 py-tight bg-surface border border-border rounded text-body-sm focus:outline-none focus:border-primary" placeholder="New category name"/>
+          <button id="btn-add-cat" class="px-md py-tight bg-primary text-on-primary rounded text-label-caps font-label-caps hover:opacity-90">Add</button>
+        </div>
+      </section>
+
+      <!-- Data Management -->
+      <section class="col-span-12 md:col-span-8 bg-surface border border-border rounded-lg p-lg">
+        <div class="flex items-center gap-md mb-lg">
+          <span class="material-symbols-outlined text-primary">database</span>
+          <h3 class="text-headline-md font-headline-md">Data Management</h3>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+          <div class="p-md border border-border rounded bg-surface-container-low flex flex-col items-center text-center">
+            <span class="material-symbols-outlined text-[32px] mb-md text-secondary">file_upload</span>
+            <h4 class="text-body-base font-bold mb-base">Import Bookmarks</h4>
+            <p class="text-body-sm text-secondary mb-lg">Upload a JSON file exported from BookmarkSync.</p>
+            <input type="file" id="import-file" accept=".json" class="hidden"/>
+            <button id="btn-import" class="mt-auto px-lg py-tight border border-primary text-primary text-button rounded hover:bg-primary-fixed transition-colors">Import from JSON</button>
+          </div>
+          <div class="p-md border border-border rounded bg-surface-container-low flex flex-col items-center text-center">
+            <span class="material-symbols-outlined text-[32px] mb-md text-secondary">file_download</span>
+            <h4 class="text-body-base font-bold mb-base">Export Bookmarks</h4>
+            <p class="text-body-sm text-secondary mb-lg">Save your entire library as a portable JSON file.</p>
+            <button id="btn-export" class="mt-auto px-lg py-tight bg-primary text-on-primary text-button rounded hover:opacity-90 active:scale-95 transition-all">Export as JSON</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Links -->
+      <section class="col-span-12 md:col-span-4 bg-surface border border-border rounded-lg p-lg">
+        <div class="flex items-center gap-md mb-lg">
+          <span class="material-symbols-outlined text-primary">account_circle</span>
+          <h3 class="text-headline-md font-headline-md">Quick Links</h3>
+        </div>
+        <ul class="space-y-base">
+          <li>
+            <a href="profile.html" class="flex items-center justify-between p-md border border-border rounded hover:bg-surface-container-high transition-colors group">
+              <div class="flex items-center gap-md">
+                <span class="material-symbols-outlined text-secondary">person</span>
+                <span class="text-body-sm">User Profile</span>
+              </div>
+              <span class="material-symbols-outlined text-secondary text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
+          </li>
+          <li>
+            <a href="help.html" class="flex items-center justify-between p-md border border-border rounded hover:bg-surface-container-high transition-colors group">
+              <div class="flex items-center gap-md">
+                <span class="material-symbols-outlined text-secondary">help</span>
+                <span class="text-body-sm">Help &amp; Support</span>
+              </div>
+              <span class="material-symbols-outlined text-secondary text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
+          </li>
+          <li>
+            <a href="../index.html" class="flex items-center justify-between p-md border border-border rounded hover:bg-surface-container-high transition-colors group">
+              <div class="flex items-center gap-md">
+                <span class="material-symbols-outlined text-secondary">dashboard</span>
+                <span class="text-body-sm">Back to Dashboard</span>
+              </div>
+              <span class="material-symbols-outlined text-secondary text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div><!-- end bento-grid -->
+  </div>
+
+  <footer class="mt-auto py-lg text-center border-t border-border">
+    <p class="text-label-caps text-secondary">BookmarkSync v1.0.0 — All data encrypted at rest</p>
+  </footer>
+</main>
+
+<!-- Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-14 bg-surface border-t border-border z-50">
+  <a href="../index.html" class="text-secondary flex flex-col items-center py-tight">
+    <span class="material-symbols-outlined">home</span><span class="text-body-sm">Home</span>
+  </a>
+  <a href="../index.html" class="text-secondary flex flex-col items-center py-tight">
+    <span class="material-symbols-outlined">bookmark</span><span class="text-body-sm">Bookmarks</span>
+  </a>
+  <a href="#" class="text-primary font-bold flex flex-col items-center py-tight">
+    <span class="material-symbols-outlined">settings</span><span class="text-body-sm">Settings</span>
+  </a>
+</nav>
+
+<script>
+const API_BASE_KEY = 'bs_api_base';
+const CATS_KEY     = 'bs_categories';
+
+function showToast(msg, type='success') {
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+// Theme
+const html = document.documentElement;
+if (localStorage.getItem('bs_theme') === 'dark') html.classList.add('dark');
+document.getElementById('btn-theme').addEventListener('click', () => {
+  html.classList.toggle('dark');
+  localStorage.setItem('bs_theme', html.classList.contains('dark') ? 'dark' : 'light');
+});
+document.getElementById('theme-light').addEventListener('click', () => { html.classList.remove('dark'); localStorage.setItem('bs_theme','light'); });
+document.getElementById('theme-dark').addEventListener('click',  () => { html.classList.add('dark');    localStorage.setItem('bs_theme','dark'); });
+
+// API URL
+const savedUrl = localStorage.getItem(API_BASE_KEY);
+if (savedUrl) document.getElementById('api-url-input').value = savedUrl;
+document.getElementById('btn-save-api-url').addEventListener('click', () => {
+  const val = document.getElementById('api-url-input').value.trim();
+  if (val) { localStorage.setItem(API_BASE_KEY, val); showToast('API URL saved'); }
+});
+
+// Categories
+function getCategories() {
+  try { return JSON.parse(localStorage.getItem(CATS_KEY)) || ['Development','Design','Reading','Productivity']; }
+  catch { return ['Development','Design','Reading','Productivity']; }
+}
+function saveCategories(cats) { localStorage.setItem(CATS_KEY, JSON.stringify(cats)); }
+function renderCats() {
+  const cats = getCategories();
+  const el = document.getElementById('cat-list');
+  el.innerHTML = cats.map((c,i) => `
+    <div class="flex items-center justify-between py-base px-md border-b border-border/50">
+      <span class="text-body-sm">${c}</span>
+      <button data-idx="${i}" class="del-cat material-symbols-outlined text-secondary text-sm cursor-pointer hover:text-danger">close</button>
+    </div>`).join('');
+  el.querySelectorAll('.del-cat').forEach(btn => btn.addEventListener('click', () => {
+    const cats = getCategories();
+    cats.splice(parseInt(btn.dataset.idx), 1);
+    saveCategories(cats);
+    renderCats();
+  }));
+}
+renderCats();
+document.getElementById('btn-add-cat').addEventListener('click', () => {
+  const val = document.getElementById('new-cat-input').value.trim();
+  if (!val) return;
+  const cats = getCategories();
+  if (!cats.includes(val)) { cats.push(val); saveCategories(cats); renderCats(); }
+  document.getElementById('new-cat-input').value = '';
+});
+
+// Logout
+document.getElementById('btn-logout').addEventListener('click', () => {
+  localStorage.removeItem('bs_token');
+  localStorage.removeItem('bs_user');
+  window.location.href = '../index.html';
+});
+
+// Export
+document.getElementById('btn-export').addEventListener('click', async () => {
+  const token = localStorage.getItem('bs_token');
+  if (!token) { showToast('Not logged in', 'error'); return; }
+  const apiBase = localStorage.getItem(API_BASE_KEY) || 'http://localhost:5000/api';
+  try {
+    const res  = await fetch(apiBase + '/bookmarks', { headers: { Authorization: `Bearer ${token}` } });
+    const data = await res.json();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a    = document.createElement('a');
+    a.href     = URL.createObjectURL(blob);
+    a.download = 'bookmarksync-export.json';
+    a.click();
+    showToast('Export downloaded');
+  } catch (err) { showToast(err.message, 'error'); }
+});
+
+// Import
+document.getElementById('btn-import').addEventListener('click', () => document.getElementById('import-file').click());
+document.getElementById('import-file').addEventListener('change', async e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const token   = localStorage.getItem('bs_token');
+  const apiBase = localStorage.getItem(API_BASE_KEY) || 'http://localhost:5000/api';
+  if (!token) { showToast('Not logged in', 'error'); return; }
+  const text = await file.text();
+  let items;
+  try { items = JSON.parse(text); } catch { showToast('Invalid JSON file', 'error'); return; }
+  if (!Array.isArray(items)) { showToast('Expected an array of bookmarks', 'error'); return; }
+  let count = 0;
+  for (const b of items) {
+    if (!b.title || !b.url) continue;
+    try {
+      await fetch(apiBase + '/bookmarks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ title: b.title, url: b.url, category: b.category || '', description: b.description || '' })
+      });
+      count++;
+    } catch {}
+  }
+  showToast(`Imported ${count} bookmarks`);
+  e.target.value = '';
+});
+</script>
+</body>
+</html>

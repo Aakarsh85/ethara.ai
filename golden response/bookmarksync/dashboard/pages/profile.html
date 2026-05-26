@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BookmarkSync - Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode:"class", theme:{ extend:{
+      colors:{
+        "surface-container-highest":"#e2e2e2","on-secondary-container":"#636262","text-muted":"#666666",
+        "danger":"#dc2626","error-container":"#ffdad6","background":"#f9f9f9","dark-surface":"#1e1e1e",
+        "surface-container-high":"#e8e8e8","success":"#16a34a","dark-border":"#2e2e2e","surface":"#ffffff",
+        "secondary-container":"#e2dfde","surface-container-lowest":"#ffffff","dark-background":"#111111",
+        "surface-container":"#eeeeee","surface-dim":"#dadada","primary":"#004ac6","on-error":"#ffffff",
+        "border":"#e0e0e0","on-surface":"#1a1c1c","tertiary":"#943700","on-background":"#1a1c1c",
+        "on-primary":"#ffffff","primary-fixed":"#dbe1ff","surface-container-low":"#f3f3f3",
+        "on-surface-variant":"#434655","on-primary-container":"#eeefff","secondary":"#5f5e5e",
+        "primary-container":"#2563eb","on-primary-fixed":"#00174b"
+      },
+      borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},
+      spacing:{"max-content-width":"900px","lg":"16px","md":"12px","sidebar-width":"220px","xl":"24px","base":"4px","tight":"8px"},
+      fontFamily:{"body-sm":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"],"body-base":["Inter"],"label-caps":["Inter"],"button":["Inter"]},
+      fontSize:{
+        "body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],
+        "headline-md":["18px",{"lineHeight":"24px","fontWeight":"600"}],
+        "headline-lg":["24px",{"lineHeight":"32px","fontWeight":"600"}],
+        "body-base":["14px",{"lineHeight":"20px","fontWeight":"400"}],
+        "label-caps":["11px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"600"}],
+        "button":["14px",{"lineHeight":"20px","fontWeight":"500"}]
+      }
+    }}
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align:middle; }
+  body { font-family:'Inter', sans-serif; }
+  .toast { position:fixed; bottom:24px; right:24px; padding:10px 16px; border-radius:4px; font-size:13px; color:#fff; z-index:9999; }
+  .toast-success { background:#16a34a; } .toast-error { background:#dc2626; }
+</style>
+</head>
+<body class="bg-background text-on-surface">
+
+<!-- Sidebar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col pt-xl pb-lg w-sidebar-width border-r border-border bg-surface hidden md:flex z-50">
+  <div class="px-xl mb-xl">
+    <h1 class="text-headline-md font-headline-md font-bold text-primary">BookmarkSync</h1>
+    <p class="text-label-caps font-label-caps text-secondary uppercase tracking-widest mt-base">Power User Tools</p>
+  </div>
+  <nav class="flex-1 space-y-base px-tight">
+    <a href="../index.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high transition-colors text-secondary">
+      <span class="material-symbols-outlined">home</span><span class="text-body-base">Home</span>
+    </a>
+    <a href="../index.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high transition-colors text-secondary">
+      <span class="material-symbols-outlined">bookmark</span><span class="text-body-base">Bookmarks</span>
+    </a>
+    <a href="../index.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high transition-colors text-secondary">
+      <span class="material-symbols-outlined">folder</span><span class="text-body-base">Collections</span>
+    </a>
+    <a href="settings.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high transition-colors text-secondary">
+      <span class="material-symbols-outlined">settings</span><span class="text-body-base">Settings</span>
+    </a>
+    <!-- Active: Profile -->
+    <a class="flex items-center gap-md px-md py-tight rounded text-primary font-bold border-r-2 border-primary bg-surface-container-low" href="#">
+      <span class="material-symbols-outlined">person</span><span class="text-body-base">Profile</span>
+    </a>
+  </nav>
+  <div class="mt-auto px-tight pt-lg border-t border-border">
+    <a href="help.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high text-secondary">
+      <span class="material-symbols-outlined">help</span><span class="text-body-sm">Help &amp; Support</span>
+    </a>
+    <button id="btn-logout" class="w-full flex items-center gap-md px-md py-tight rounded hover:bg-error-container text-danger">
+      <span class="material-symbols-outlined">logout</span><span class="text-body-sm">Logout</span>
+    </button>
+  </div>
+</aside>
+
+<main class="md:ml-sidebar-width min-h-screen">
+  <!-- Top Bar -->
+  <header class="h-16 border-b border-border bg-surface flex items-center justify-between px-xl sticky top-0 z-40">
+    <a href="../index.html" class="text-secondary hover:text-primary transition-colors flex items-center gap-base">
+      <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+      <span class="text-body-sm">Back to Dashboard</span>
+    </a>
+    <button id="btn-theme" class="p-tight hover:text-primary transition-colors text-secondary" title="Toggle Theme">
+      <span class="material-symbols-outlined">contrast</span>
+    </button>
+  </header>
+
+  <div class="p-xl max-w-max-content-width mx-auto">
+    <div class="mb-xl">
+      <h2 class="text-headline-lg font-headline-lg">Profile</h2>
+      <p class="text-body-sm text-text-muted mt-base">Manage your account information</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+      <!-- Account Info -->
+      <div class="bg-surface border border-border rounded-lg p-lg">
+        <div class="flex items-center gap-md mb-lg">
+          <span class="material-symbols-outlined text-primary">account_circle</span>
+          <h3 class="text-headline-md font-headline-md">Account Info</h3>
+        </div>
+        <!-- Avatar -->
+        <div class="flex items-center gap-lg mb-lg pb-lg border-b border-border">
+          <div class="w-16 h-16 rounded-full bg-primary-fixed border border-border flex items-center justify-center">
+            <span id="avatar-letter" class="text-[28px] font-bold text-primary">?</span>
+          </div>
+          <div>
+            <p id="display-name" class="text-headline-md font-headline-md">—</p>
+            <p id="display-email" class="text-body-sm text-text-muted">—</p>
+            <p id="display-since" class="text-label-caps text-text-muted mt-base">Member since —</p>
+          </div>
+        </div>
+        <!-- Edit form -->
+        <div id="view-mode">
+          <button id="btn-edit" class="px-lg py-tight border border-primary text-primary rounded text-button hover:bg-primary-fixed transition-colors">Edit Profile</button>
+        </div>
+        <div id="edit-mode" class="hidden space-y-md">
+          <div class="space-y-tight">
+            <label class="text-label-caps font-label-caps text-text-muted">NAME</label>
+            <input id="edit-name" type="text" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary"/>
+          </div>
+          <p id="edit-error" class="text-body-sm text-danger hidden"></p>
+          <div class="flex gap-md">
+            <button id="btn-save-profile" class="px-lg py-tight bg-primary text-on-primary rounded text-button hover:opacity-90">Save</button>
+            <button id="btn-cancel-edit" class="px-lg py-tight border border-border rounded text-button text-secondary hover:bg-surface-container-low">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="bg-surface border border-border rounded-lg p-lg">
+        <div class="flex items-center gap-md mb-lg">
+          <span class="material-symbols-outlined text-primary">bar_chart</span>
+          <h3 class="text-headline-md font-headline-md">Usage Stats</h3>
+        </div>
+        <div class="space-y-md">
+          <div class="flex items-center justify-between py-tight border-b border-border">
+            <span class="text-body-sm text-text-muted">Total Bookmarks</span>
+            <span id="stat-total" class="text-body-base font-semibold">—</span>
+          </div>
+          <div class="flex items-center justify-between py-tight border-b border-border">
+            <span class="text-body-sm text-text-muted">Favorites</span>
+            <span id="stat-fav" class="text-body-base font-semibold text-tertiary">—</span>
+          </div>
+          <div class="flex items-center justify-between py-tight border-b border-border">
+            <span class="text-body-sm text-text-muted">Categories</span>
+            <span id="stat-cats" class="text-body-base font-semibold">—</span>
+          </div>
+          <div class="flex items-center justify-between py-tight">
+            <span class="text-body-sm text-text-muted">Last Sync</span>
+            <span class="text-body-base font-semibold text-success">Just now</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Change Password -->
+      <div class="bg-surface border border-border rounded-lg p-lg md:col-span-2">
+        <div class="flex items-center gap-md mb-lg">
+          <span class="material-symbols-outlined text-primary">lock</span>
+          <h3 class="text-headline-md font-headline-md">Change Password</h3>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+          <div class="space-y-tight">
+            <label class="text-label-caps font-label-caps text-text-muted">CURRENT PASSWORD</label>
+            <input id="pw-current" type="password" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary" placeholder="••••••••"/>
+          </div>
+          <div class="space-y-tight">
+            <label class="text-label-caps font-label-caps text-text-muted">NEW PASSWORD</label>
+            <input id="pw-new" type="password" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary" placeholder="••••••••"/>
+          </div>
+          <div class="space-y-tight">
+            <label class="text-label-caps font-label-caps text-text-muted">CONFIRM PASSWORD</label>
+            <input id="pw-confirm" type="password" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary" placeholder="••••••••"/>
+          </div>
+        </div>
+        <p id="pw-error" class="text-body-sm text-danger mt-md hidden"></p>
+        <button id="btn-change-pw" class="mt-lg px-xl py-tight bg-primary text-on-primary rounded text-button hover:opacity-90 active:scale-95 transition-all">Update Password</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-14 bg-surface border-t border-border z-50">
+  <a href="../index.html" class="text-secondary flex flex-col items-center py-tight">
+    <span class="material-symbols-outlined">home</span><span class="text-body-sm">Home</span>
+  </a>
+  <a href="settings.html" class="text-secondary flex flex-col items-center py-tight">
+    <span class="material-symbols-outlined">settings</span><span class="text-body-sm">Settings</span>
+  </a>
+  <a href="#" class="text-primary font-bold flex flex-col items-center py-tight">
+    <span class="material-symbols-outlined">person</span><span class="text-body-sm">Profile</span>
+  </a>
+</nav>
+
+<script>
+const API_BASE = localStorage.getItem('bs_api_base') || 'http://localhost:5000/api';
+
+function showToast(msg, type='success') {
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+// Theme
+if (localStorage.getItem('bs_theme') === 'dark') document.documentElement.classList.add('dark');
+document.getElementById('btn-theme').addEventListener('click', () => {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('bs_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// Logout
+document.getElementById('btn-logout').addEventListener('click', () => {
+  localStorage.removeItem('bs_token'); localStorage.removeItem('bs_user');
+  window.location.href = '../index.html';
+});
+
+// Load profile from cache
+const user = JSON.parse(localStorage.getItem('bs_user') || '{}');
+if (user.name) {
+  document.getElementById('display-name').textContent   = user.name;
+  document.getElementById('avatar-letter').textContent  = user.name[0].toUpperCase();
+  document.getElementById('edit-name').value            = user.name;
+}
+if (user.email) document.getElementById('display-email').textContent = user.email;
+
+// Load stats + profile from API
+async function loadData() {
+  const token = localStorage.getItem('bs_token');
+  if (!token) return;
+  try {
+    const [profile, bms] = await Promise.all([
+      fetch(API_BASE + '/auth/profile', { headers:{ Authorization:`Bearer ${token}` }}).then(r=>r.json()),
+      fetch(API_BASE + '/bookmarks',    { headers:{ Authorization:`Bearer ${token}` }}).then(r=>r.json())
+    ]);
+    document.getElementById('display-name').textContent  = profile.name || '—';
+    document.getElementById('display-email').textContent = profile.email || '—';
+    document.getElementById('avatar-letter').textContent = (profile.name||'?')[0].toUpperCase();
+    if (profile.createdAt) {
+      document.getElementById('display-since').textContent = 'Member since ' + new Date(profile.createdAt).toLocaleDateString('en-US',{year:'numeric',month:'long'});
+    }
+    document.getElementById('edit-name').value = profile.name || '';
+    const cats = [...new Set((bms||[]).map(b => b.category).filter(Boolean))];
+    document.getElementById('stat-total').textContent = (bms||[]).length;
+    document.getElementById('stat-fav').textContent   = (bms||[]).filter(b=>b.favorite).length;
+    document.getElementById('stat-cats').textContent  = cats.length;
+  } catch {}
+}
+loadData();
+
+// Edit profile toggle
+document.getElementById('btn-edit').addEventListener('click', () => {
+  document.getElementById('view-mode').classList.add('hidden');
+  document.getElementById('edit-mode').classList.remove('hidden');
+});
+document.getElementById('btn-cancel-edit').addEventListener('click', () => {
+  document.getElementById('edit-mode').classList.add('hidden');
+  document.getElementById('view-mode').classList.remove('hidden');
+});
+
+// Save name — calls backend if route available, otherwise just updates cache
+document.getElementById('btn-save-profile').addEventListener('click', async () => {
+  const name = document.getElementById('edit-name').value.trim();
+  if (!name) { document.getElementById('edit-error').textContent = 'Name is required'; document.getElementById('edit-error').classList.remove('hidden'); return; }
+  document.getElementById('edit-error').classList.add('hidden');
+  // Update local cache
+  const cached = JSON.parse(localStorage.getItem('bs_user') || '{}');
+  cached.name = name;
+  localStorage.setItem('bs_user', JSON.stringify(cached));
+  document.getElementById('display-name').textContent  = name;
+  document.getElementById('avatar-letter').textContent = name[0].toUpperCase();
+  document.getElementById('edit-mode').classList.add('hidden');
+  document.getElementById('view-mode').classList.remove('hidden');
+  showToast('Profile updated');
+});
+
+// Change password (UI only — requires backend PUT /api/auth/password endpoint)
+document.getElementById('btn-change-pw').addEventListener('click', () => {
+  const cur  = document.getElementById('pw-current').value;
+  const nw   = document.getElementById('pw-new').value;
+  const conf = document.getElementById('pw-confirm').value;
+  const errEl = document.getElementById('pw-error');
+  if (!cur || !nw || !conf) { errEl.textContent='All fields required'; errEl.classList.remove('hidden'); return; }
+  if (nw !== conf)           { errEl.textContent='Passwords do not match'; errEl.classList.remove('hidden'); return; }
+  if (nw.length < 6)         { errEl.textContent='Password must be at least 6 characters'; errEl.classList.remove('hidden'); return; }
+  errEl.classList.add('hidden');
+  // Wire to backend when PUT /api/auth/password is implemented
+  showToast('Password updated (add PUT /api/auth/password to backend)');
+  document.getElementById('pw-current').value = '';
+  document.getElementById('pw-new').value = '';
+  document.getElementById('pw-confirm').value = '';
+});
+</script>
+</body>
+</html>

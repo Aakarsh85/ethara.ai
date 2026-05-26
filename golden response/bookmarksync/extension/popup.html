@@ -1,53 +1,195 @@
 <!DOCTYPE html>
-<html>
+<html class="light" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="popup.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="stylesheet" href="styles.css">
+<!-- <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/> -->
+<style>
+  body { font-family:'Inter',sans-serif; width:360px; height:600px; margin:0; overflow:hidden; background-color:#f9f9f9; }
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20; vertical-align:middle; font-size:18px; }
+  .custom-scrollbar::-webkit-scrollbar { width:4px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background:#f1f1f1; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background:#e0e0e0; border-radius:2px; }
+</style>
+<!-- <script id="tailwind-config">
+  tailwind.config = {
+    darkMode:"class",
+    theme:{ extend:{
+      colors:{
+        "surface-container-highest":"#e2e2e2","on-secondary-container":"#636262","text-muted":"#666666",
+        "danger":"#dc2626","error-container":"#ffdad6","background":"#f9f9f9","dark-surface":"#1e1e1e",
+        "surface-container-high":"#e8e8e8","success":"#16a34a","dark-border":"#2e2e2e","surface":"#ffffff",
+        "secondary-container":"#e2dfde","surface-container-lowest":"#ffffff","dark-background":"#111111",
+        "surface-container":"#eeeeee","surface-dim":"#dadada","primary":"#004ac6","on-error":"#ffffff",
+        "border":"#e0e0e0","on-surface":"#1a1c1c","tertiary":"#943700","on-background":"#1a1c1c",
+        "on-primary":"#ffffff","primary-fixed":"#dbe1ff","surface-container-low":"#f3f3f3",
+        "on-surface-variant":"#434655","on-primary-container":"#eeefff","secondary":"#5f5e5e",
+        "primary-container":"#2563eb","outline-variant":"#c3c6d7","on-primary-fixed":"#00174b"
+      },
+      borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},
+      spacing:{"lg":"16px","md":"12px","sidebar-width":"220px","xl":"24px","base":"4px","tight":"8px"},
+      fontFamily:{"body-sm":["Inter"],"headline-md":["Inter"],"body-base":["Inter"],"label-caps":["Inter"],"button":["Inter"]},
+      fontSize:{
+        "body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],
+        "headline-md":["18px",{"lineHeight":"24px","fontWeight":"600"}],
+        "body-base":["14px",{"lineHeight":"20px","fontWeight":"400"}],
+        "label-caps":["11px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"600"}],
+        "button":["14px",{"lineHeight":"20px","fontWeight":"500"}]
+      }
+    }}
+  }
+</script> -->
 </head>
-<body>
-  <!-- Auth view (shown when logged out) -->
-  <div id="auth-view">
-    <!-- Login form -->
-    <!-- Link to switch to signup form -->
-    <!-- Signup form -->
-  </div>
+<body class="bg-background text-on-background flex flex-col h-[600px] w-[360px]">
 
-  <!-- Main view (shown when logged in) -->
-  <div id="main-view" hidden>
-    <!-- Header: app name + dashboard button + logout button -->
-    <header>
-      <span class="app-title">BookmarkSync</span>
-      <button id="btn-dashboard" title="Open Dashboard">⊞</button>
-      <button id="btn-logout">Logout</button>
-    </header>
-
-    <!-- Quick add current tab -->
-    <div id="quick-add">
-      <button id="btn-quick-add">+ Add Current Tab</button>
+<!-- ========== AUTH VIEW ========== -->
+<div id="auth-view" class="flex flex-col h-full">
+  <header class="flex items-center px-lg h-14 bg-surface border-b border-border shrink-0">
+    <span class="material-symbols-outlined text-primary mr-tight">sync</span>
+    <h1 class="text-headline-md font-headline-md text-primary font-bold">BookmarkSync</h1>
+  </header>
+  <main class="flex-1 overflow-y-auto custom-scrollbar p-lg space-y-lg">
+    <!-- Login Form -->
+    <div id="ext-login-form" class="space-y-md">
+      <p class="text-label-caps font-label-caps text-secondary">SIGN IN TO YOUR ACCOUNT</p>
+      <div class="space-y-tight">
+        <label class="text-label-caps font-label-caps text-text-muted">EMAIL</label>
+        <input id="ext-login-email" type="email" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-sm focus:outline-none focus:border-primary" placeholder="you@example.com"/>
+      </div>
+      <div class="space-y-tight">
+        <label class="text-label-caps font-label-caps text-text-muted">PASSWORD</label>
+        <input id="ext-login-password" type="password" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-sm focus:outline-none focus:border-primary" placeholder="••••••••"/>
+      </div>
+      <p id="ext-login-error" class="text-body-sm text-danger hidden"></p>
+      <button id="btn-ext-login" class="w-full bg-primary text-on-primary py-tight rounded font-button text-button hover:opacity-90 active:scale-[0.98] transition-all">Sign In</button>
+      <p class="text-body-sm text-center text-text-muted">No account? <a id="ext-show-signup" class="text-primary cursor-pointer hover:underline">Sign up</a></p>
     </div>
-
-    <!-- Add / Edit form (collapsible) -->
-    <div id="form-section">
-      <input id="input-title"    placeholder="Title">
-      <input id="input-url"      placeholder="URL">
-      <input id="input-category" placeholder="Category">
-      <textarea id="input-desc"  placeholder="Notes (optional)"></textarea>
-      <button id="btn-save">Save</button>
-      <button id="btn-cancel" hidden>Cancel</button>
+    <!-- Signup Form -->
+    <div id="ext-signup-form" class="space-y-md hidden">
+      <p class="text-label-caps font-label-caps text-secondary">CREATE ACCOUNT</p>
+      <div class="space-y-tight">
+        <label class="text-label-caps font-label-caps text-text-muted">NAME</label>
+        <input id="ext-signup-name" type="text" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-sm focus:outline-none focus:border-primary" placeholder="Your name"/>
+      </div>
+      <div class="space-y-tight">
+        <label class="text-label-caps font-label-caps text-text-muted">EMAIL</label>
+        <input id="ext-signup-email" type="email" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-sm focus:outline-none focus:border-primary" placeholder="you@example.com"/>
+      </div>
+      <div class="space-y-tight">
+        <label class="text-label-caps font-label-caps text-text-muted">PASSWORD</label>
+        <input id="ext-signup-password" type="password" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-sm focus:outline-none focus:border-primary" placeholder="Min 6 characters"/>
+      </div>
+      <p id="ext-signup-error" class="text-body-sm text-danger hidden"></p>
+      <button id="btn-ext-signup" class="w-full bg-primary text-on-primary py-tight rounded font-button text-button hover:opacity-90 active:scale-[0.98] transition-all">Create Account</button>
+      <p class="text-body-sm text-center text-text-muted">Have an account? <a id="ext-show-login" class="text-primary cursor-pointer hover:underline">Sign in</a></p>
     </div>
+  </main>
+</div>
 
+<!-- ========== MAIN VIEW ========== -->
+<div id="main-view" class="hidden flex flex-col h-full">
+  <!-- Top Bar -->
+  <header class="flex justify-between items-center px-lg h-14 bg-surface border-b border-border shrink-0">
+    <div class="flex items-center gap-tight">
+      <span class="material-symbols-outlined text-primary">sync</span>
+      <h1 class="text-headline-md font-headline-md text-primary font-bold">BookmarkSync</h1>
+    </div>
+    <div class="flex items-center gap-md">
+      <button id="btn-dashboard" class="flex items-center gap-base text-secondary hover:text-primary transition-colors cursor-pointer" title="Open Dashboard">
+        <span class="text-label-caps font-label-caps">DASHBOARD</span>
+        <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span>
+      </button>
+      <button id="btn-ext-logout" class="text-secondary hover:text-danger transition-colors" title="Logout">
+        <span class="material-symbols-outlined" style="font-size:16px">logout</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 overflow-y-auto custom-scrollbar p-lg space-y-lg">
     <!-- Search -->
-    <input id="search-input" placeholder="Search bookmarks...">
-
-    <!-- Bookmark list -->
-    <div id="bookmark-list">
-      <!-- Populated by popup.js -->
+    <div class="relative">
+      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary">search</span>
+      <input id="ext-search" type="text" class="w-full pl-10 pr-4 py-tight bg-surface border border-border rounded text-body-sm focus:border-primary focus:ring-0 outline-none transition-all" placeholder="Search bookmarks..."/>
     </div>
-  </div>
 
-  <script src="api.js"></script>
-  <script src="auth.js"></script>
-  <script src="storage.js"></script>
-  <script src="popup.js"></script>
+    <!-- Add / Edit Section -->
+    <section class="space-y-md">
+      <div class="flex items-center justify-between">
+        <h2 id="form-section-title" class="text-label-caps font-label-caps text-secondary">QUICK ADD CURRENT TAB</h2>
+        <button id="btn-quick-add-tab" class="text-label-caps font-label-caps text-primary flex items-center gap-base hover:underline" title="Fill from current tab">
+          <span class="material-symbols-outlined" style="font-size:14px">bolt</span> AUTO-FILL
+        </button>
+      </div>
+      <div class="bg-surface border border-border p-md rounded space-y-md">
+        <div class="space-y-tight">
+          <label class="text-label-caps font-label-caps text-text-muted">PAGE TITLE</label>
+          <input id="ext-title" type="text" class="w-full px-3 py-tight bg-surface-container-low border border-border rounded text-body-sm focus:border-primary outline-none" placeholder="Bookmark title"/>
+        </div>
+        <div class="space-y-tight">
+          <label class="text-label-caps font-label-caps text-text-muted">URL</label>
+          <input id="ext-url" type="text" class="w-full px-3 py-tight bg-surface-container-low border border-border rounded text-body-sm focus:border-primary outline-none" placeholder="https://..."/>
+        </div>
+        <div class="grid grid-cols-2 gap-md">
+          <div class="space-y-tight">
+            <label class="text-label-caps font-label-caps text-text-muted">CATEGORY</label>
+            <input id="ext-category" type="text" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-sm outline-none focus:border-primary" placeholder="e.g. Design"/>
+          </div>
+          <div class="space-y-tight">
+            <label class="text-label-caps font-label-caps text-text-muted">NOTES</label>
+            <input id="ext-description" type="text" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-sm outline-none focus:border-primary" placeholder="Optional note"/>
+          </div>
+        </div>
+        <input type="hidden" id="ext-edit-id"/>
+        <p id="ext-form-error" class="text-body-sm text-danger hidden"></p>
+        <div class="flex gap-md">
+          <button id="btn-ext-save" class="flex-1 bg-primary text-on-primary py-tight rounded font-button text-button hover:opacity-90 active:scale-[0.98] transition-all flex justify-center items-center gap-tight">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">bookmark_add</span>
+            Save Bookmark
+          </button>
+          <button id="btn-ext-cancel" class="hidden px-md py-tight border border-border rounded font-button text-button text-secondary hover:bg-surface-container-low">Cancel</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bookmark List -->
+    <section class="space-y-md pb-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-label-caps font-label-caps text-secondary">RECENT BOOKMARKS</h2>
+        <span id="ext-bm-count" class="text-label-caps text-text-muted"></span>
+      </div>
+      <div id="ext-bookmark-list" class="space-y-tight">
+        <div class="text-body-sm text-text-muted text-center py-lg">Loading...</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bottom Nav -->
+  <nav class="flex items-center justify-around h-14 bg-surface border-t border-border shrink-0 px-lg">
+    <button id="nav-home" class="flex flex-col items-center gap-base text-primary active:scale-95 transition-all">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">home</span>
+      <span class="text-body-sm font-bold">Home</span>
+    </button>
+    <button id="nav-all" class="flex flex-col items-center gap-base text-secondary hover:bg-surface-container-low p-tight rounded active:scale-95 transition-all">
+      <span class="material-symbols-outlined">bookmark</span>
+      <span class="text-body-sm">All</span>
+    </button>
+    <button id="nav-favs" class="flex flex-col items-center gap-base text-secondary hover:bg-surface-container-low p-tight rounded active:scale-95 transition-all">
+      <span class="material-symbols-outlined">star</span>
+      <span class="text-body-sm">Favorites</span>
+    </button>
+    <button id="nav-add" class="flex flex-col items-center gap-base text-secondary hover:bg-surface-container-low p-tight rounded active:scale-95 transition-all">
+      <span class="material-symbols-outlined">add</span>
+      <span class="text-body-sm">Add</span>
+    </button>
+  </nav>
+</div>
+
+<script src="api.js"></script>
+<script src="auth.js"></script>
+<script src="storage.js"></script>
+<script src="popup.js"></script>
 </body>
 </html>

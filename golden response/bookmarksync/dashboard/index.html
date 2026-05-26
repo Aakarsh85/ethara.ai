@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BookmarkSync - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+  body { font-family: 'Inter', sans-serif; background-color: #f9f9f9; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 2px; }
+  .toast { position:fixed; bottom:24px; right:24px; padding:10px 16px; border-radius:4px; font-size:13px; color:#fff; z-index:9999; font-family:'Inter',sans-serif; }
+  .toast-success { background:#16a34a; }
+  .toast-error   { background:#dc2626; }
+</style>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-highest":"#e2e2e2","on-secondary-container":"#636262","on-secondary":"#ffffff",
+          "on-primary-fixed":"#00174b","dark-text-muted":"#888888","secondary-fixed":"#e5e2e1",
+          "text-muted":"#666666","danger":"#dc2626","error-container":"#ffdad6","background":"#f9f9f9",
+          "inverse-surface":"#2f3131","dark-surface":"#1e1e1e","dark-text":"#f0f0f0",
+          "primary-fixed-dim":"#b4c5ff","surface-container-high":"#e8e8e8","success":"#16a34a",
+          "dark-border":"#2e2e2e","surface":"#ffffff","surface-variant":"#e2e2e2",
+          "on-error-container":"#93000a","secondary-container":"#e2dfde","surface-container-lowest":"#ffffff",
+          "dark-background":"#111111","surface-container":"#eeeeee","on-secondary-fixed":"#1c1b1b",
+          "secondary-fixed-dim":"#c8c6c5","tertiary-fixed-dim":"#ffb596","error":"#ba1a1a",
+          "surface-dim":"#dadada","on-primary-fixed-variant":"#003ea8","primary":"#004ac6",
+          "tertiary-fixed":"#ffdbcd","on-error":"#ffffff","inverse-on-surface":"#f1f1f1",
+          "inverse-primary":"#b4c5ff","on-tertiary-container":"#ffede6","surface-bright":"#f9f9f9",
+          "border":"#e0e0e0","on-surface":"#1a1c1c","tertiary":"#943700","tertiary-container":"#bc4800",
+          "on-background":"#1a1c1c","on-primary":"#ffffff","primary-fixed":"#dbe1ff",
+          "on-tertiary-fixed":"#360f00","surface-container-low":"#f3f3f3","outline":"#737686",
+          "outline-variant":"#c3c6d7","on-tertiary":"#ffffff","on-secondary-fixed-variant":"#474746",
+          "on-surface-variant":"#434655","on-primary-container":"#eeefff","secondary":"#5f5e5e",
+          "primary-container":"#2563eb","surface-tint":"#0053db","on-tertiary-fixed-variant":"#7d2d00"
+        },
+        borderRadius: { "DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem" },
+        spacing: { "max-content-width":"900px","extension-width":"360px","lg":"16px","md":"12px","sidebar-width":"220px","xl":"24px","base":"4px","tight":"8px" },
+        fontFamily: { "body-sm":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"],"body-base":["Inter"],"label-caps":["Inter"],"button":["Inter"] },
+        fontSize: {
+          "body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],
+          "headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],
+          "headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],
+          "body-base":["14px",{"lineHeight":"20px","fontWeight":"400"}],
+          "label-caps":["11px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"600"}],
+          "button":["14px",{"lineHeight":"20px","fontWeight":"500"}]
+        }
+      }
+    }
+  }
+</script>
+</head>
+<body class="bg-background text-on-background">
+
+<!-- ========== AUTH VIEW ========== -->
+<div id="auth-view" class="min-h-screen flex items-center justify-center p-xl">
+  <div class="w-full max-w-sm bg-surface border border-border rounded-lg p-xl space-y-lg">
+    <div>
+      <h1 class="text-headline-lg font-headline-lg text-primary font-bold">BookmarkSync</h1>
+      <p class="text-body-sm text-text-muted mt-base">Sign in to your workspace</p>
+    </div>
+
+    <!-- Login Form -->
+    <div id="login-form" class="space-y-md">
+      <div class="space-y-tight">
+        <label class="text-label-caps font-label-caps text-text-muted">EMAIL</label>
+        <input id="login-email" type="email" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary transition-colors" placeholder="you@example.com"/>
+      </div>
+      <div class="space-y-tight">
+        <label class="text-label-caps font-label-caps text-text-muted">PASSWORD</label>
+        <input id="login-password" type="password" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary transition-colors" placeholder="••••••••"/>
+      </div>
+      <p id="login-error" class="text-body-sm text-danger hidden"></p>
+      <button id="btn-login" class="w-full bg-primary text-on-primary py-tight rounded font-button text-button hover:opacity-90 active:scale-95 transition-all">Sign In</button>
+      <p class="text-body-sm text-center text-text-muted">No account? <a id="show-signup" class="text-primary cursor-pointer hover:underline">Sign up</a></p>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signup-form" class="space-y-md hidden">
+      <div class="space-y-tight">
+        <label class="text-label-caps font-label-caps text-text-muted">NAME</label>
+        <input id="signup-name" type="text" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary transition-colors" placeholder="Your name"/>
+      </div>
+      <div class="space-y-tight">
+        <label class="text-label-caps font-label-caps text-text-muted">EMAIL</label>
+        <input id="signup-email" type="email" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary transition-colors" placeholder="you@example.com"/>
+      </div>
+      <div class="space-y-tight">
+        <label class="text-label-caps font-label-caps text-text-muted">PASSWORD</label>
+        <input id="signup-password" type="password" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary transition-colors" placeholder="Min 6 characters"/>
+      </div>
+      <p id="signup-error" class="text-body-sm text-danger hidden"></p>
+      <button id="btn-signup" class="w-full bg-primary text-on-primary py-tight rounded font-button text-button hover:opacity-90 active:scale-95 transition-all">Create Account</button>
+      <p class="text-body-sm text-center text-text-muted">Have an account? <a id="show-login" class="text-primary cursor-pointer hover:underline">Sign in</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== MAIN APP (shown after login) ========== -->
+<div id="main-view" class="hidden">
+
+  <!-- Sidebar -->
+  <aside class="fixed left-0 top-0 h-full flex flex-col pt-xl pb-lg w-sidebar-width border-r border-border bg-surface hidden md:flex z-50">
+    <div class="px-xl mb-xl">
+      <h1 class="text-headline-md font-headline-md font-bold text-primary">BookmarkSync</h1>
+      <p class="text-label-caps font-label-caps text-text-muted mt-base">Power User Tools</p>
+    </div>
+    <nav class="flex-1 px-md space-y-base overflow-y-auto custom-scrollbar">
+      <a data-page="home" class="nav-link flex items-center gap-md px-md py-tight rounded transition-all text-primary font-bold border-r-2 border-primary bg-surface-container-low cursor-pointer">
+        <span class="material-symbols-outlined">home</span>
+        <span class="text-body-base font-body-base">Home</span>
+      </a>
+      <a data-page="bookmarks" class="nav-link flex items-center gap-md px-md py-tight rounded transition-all text-secondary bg-transparent hover:bg-surface-container-high cursor-pointer">
+        <span class="material-symbols-outlined">bookmark</span>
+        <span class="text-body-base font-body-base">Bookmarks</span>
+      </a>
+      <a data-page="categories" class="nav-link flex items-center gap-md px-md py-tight rounded transition-all text-secondary bg-transparent hover:bg-surface-container-high cursor-pointer">
+        <span class="material-symbols-outlined">folder</span>
+        <span class="text-body-base font-body-base">Collections</span>
+      </a>
+      <div class="pt-lg pb-base">
+        <span class="px-md text-label-caps font-label-caps text-text-muted uppercase tracking-widest">Workspace</span>
+      </div>
+      <a href="pages/settings.html" class="flex items-center gap-md px-md py-tight rounded transition-all text-secondary bg-transparent hover:bg-surface-container-high">
+        <span class="material-symbols-outlined">settings</span>
+        <span class="text-body-base font-body-base">Settings</span>
+      </a>
+      <a href="pages/profile.html" class="flex items-center gap-md px-md py-tight rounded transition-all text-secondary bg-transparent hover:bg-surface-container-high">
+        <span class="material-symbols-outlined">person</span>
+        <span class="text-body-base font-body-base">Profile</span>
+      </a>
+    </nav>
+    <div class="px-md mt-auto space-y-base">
+      <button id="btn-add-bookmark" class="w-full bg-primary text-on-primary py-md px-xl rounded text-button font-button flex items-center justify-center gap-tight active:scale-95 transition-transform duration-150">
+        <span class="material-symbols-outlined text-[18px]">add</span>
+        Add New Bookmark
+      </button>
+      <div class="pt-lg border-t border-border mt-md">
+        <a href="pages/help.html" class="flex items-center gap-md px-md py-tight text-secondary hover:bg-surface-container-high rounded transition-colors duration-200">
+          <span class="material-symbols-outlined">help</span>
+          <span class="text-body-base font-body-base">Help &amp; Support</span>
+        </a>
+        <button id="btn-logout" class="w-full flex items-center gap-md px-md py-tight text-danger hover:bg-error-container rounded transition-colors duration-200">
+          <span class="material-symbols-outlined">logout</span>
+          <span class="text-body-base font-body-base">Logout</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Top Bar -->
+  <header class="fixed top-0 left-0 md:left-sidebar-width right-0 h-16 bg-surface border-b border-border z-40 flex items-center px-xl justify-between">
+    <div class="flex items-center flex-1 max-w-[600px]">
+      <div class="relative w-full">
+        <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-secondary text-[20px]">search</span>
+        <input id="global-search" class="w-full bg-surface-container-low border border-border rounded py-tight pl-[40px] pr-md text-body-base focus:outline-none focus:border-primary transition-colors" placeholder="Search bookmarks..." type="text"/>
+      </div>
+    </div>
+    <div class="flex items-center gap-xl ml-xl">
+      <button id="btn-quick-save" class="flex items-center gap-tight text-primary font-button px-md py-tight border border-primary rounded hover:bg-primary hover:text-on-primary transition-all active:opacity-80">
+        <span class="material-symbols-outlined text-[18px]">bolt</span>
+        Quick Save
+      </button>
+      <div class="flex items-center gap-md">
+        <button id="btn-theme-toggle" class="text-secondary hover:text-primary transition-colors cursor-pointer" title="Toggle dark mode">
+          <span class="material-symbols-outlined">contrast</span>
+        </button>
+        <div class="h-8 w-8 rounded-full border border-border bg-surface-container flex items-center justify-center">
+          <span id="user-avatar" class="text-label-caps font-label-caps text-primary font-bold">?</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-24 pb-24 md:pb-lg md:ml-sidebar-width min-h-screen">
+    <div class="max-w-max-content-width mx-auto px-xl">
+
+      <!-- Add Bookmark Modal (hidden by default) -->
+      <div id="add-modal" class="hidden mb-xl bg-surface border border-border rounded-lg p-xl">
+        <div class="flex items-center justify-between mb-lg">
+          <h3 id="modal-title" class="text-headline-md font-headline-md">Add Bookmark</h3>
+          <button id="btn-cancel-modal" class="text-secondary hover:text-on-surface"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+          <div class="space-y-tight">
+            <label class="text-label-caps font-label-caps text-text-muted">TITLE</label>
+            <input id="input-title" type="text" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary transition-colors" placeholder="Page title"/>
+          </div>
+          <div class="space-y-tight">
+            <label class="text-label-caps font-label-caps text-text-muted">URL</label>
+            <input id="input-url" type="text" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary transition-colors" placeholder="https://..."/>
+          </div>
+          <div class="space-y-tight">
+            <label class="text-label-caps font-label-caps text-text-muted">CATEGORY</label>
+            <input id="input-category" type="text" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary transition-colors" placeholder="e.g. Development"/>
+          </div>
+          <div class="space-y-tight">
+            <label class="text-label-caps font-label-caps text-text-muted">NOTES</label>
+            <input id="input-description" type="text" class="w-full px-3 py-tight bg-surface border border-border rounded text-body-base focus:outline-none focus:border-primary transition-colors" placeholder="Optional note"/>
+          </div>
+        </div>
+        <input type="hidden" id="edit-id"/>
+        <p id="form-error" class="text-body-sm text-danger mt-md hidden"></p>
+        <div class="flex gap-md mt-lg">
+          <button id="btn-save-bookmark" class="bg-primary text-on-primary px-xl py-tight rounded font-button text-button hover:opacity-90 active:scale-95 transition-all">Save</button>
+          <button id="btn-cancel-modal2" class="border border-border px-xl py-tight rounded font-button text-button text-secondary hover:bg-surface-container-low transition-colors">Cancel</button>
+        </div>
+      </div>
+
+      <!-- ---- HOME PAGE ---- -->
+      <section id="page-home">
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-md mb-xl">
+          <div class="bg-surface border border-border p-xl rounded-lg flex flex-col justify-between hover:bg-surface-container-low transition-colors duration-200">
+            <div>
+              <span class="text-label-caps font-label-caps text-text-muted uppercase">Total Bookmarks</span>
+              <h2 id="stat-total" class="text-[32px] font-bold text-primary mt-tight">—</h2>
+            </div>
+            <div class="mt-md flex items-center text-success text-body-sm">
+              <span class="material-symbols-outlined text-[16px] mr-base">trending_up</span>
+              <span>synced to cloud</span>
+            </div>
+          </div>
+          <div class="bg-surface border border-border p-xl rounded-lg flex flex-col justify-between hover:bg-surface-container-low transition-colors duration-200">
+            <div>
+              <span class="text-label-caps font-label-caps text-text-muted uppercase">Favorites</span>
+              <h2 id="stat-favorites" class="text-[32px] font-bold text-tertiary mt-tight">—</h2>
+            </div>
+            <div class="mt-md">
+              <div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+                <div id="fav-bar" class="bg-tertiary h-full w-0 transition-all duration-500"></div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-surface border border-border p-xl rounded-lg flex flex-col justify-between hover:bg-surface-container-low transition-colors duration-200">
+            <div>
+              <span class="text-label-caps font-label-caps text-text-muted uppercase">Categories</span>
+              <h2 id="stat-categories" class="text-[32px] font-bold text-on-surface mt-tight">—</h2>
+            </div>
+            <div class="mt-md flex -space-x-tight" id="cat-avatars"></div>
+          </div>
+        </div>
+
+        <!-- Recent Bookmarks -->
+        <div class="flex items-center justify-between mb-md">
+          <h3 class="text-headline-md font-headline-md text-on-surface">Recent Bookmarks</h3>
+          <button data-page="bookmarks" class="nav-link text-label-caps font-label-caps text-primary hover:underline cursor-pointer">View All</button>
+        </div>
+        <div class="bg-surface border border-border rounded-lg overflow-hidden">
+          <div id="recent-list" class="divide-y divide-border">
+            <div class="px-xl py-lg text-body-sm text-text-muted">Loading...</div>
+          </div>
+          <div class="bg-surface-container-low py-tight px-xl flex justify-center">
+            <button data-page="bookmarks" class="nav-link text-button font-button text-primary hover:underline cursor-pointer">View All Bookmarks</button>
+          </div>
+        </div>
+
+        <!-- Collections Preview -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-xl mt-xl">
+          <div class="bg-primary text-on-primary p-xl rounded-lg relative overflow-hidden flex flex-col justify-between h-[180px]">
+            <div class="relative z-10">
+              <h4 class="text-headline-md font-headline-md">Your Collection</h4>
+              <p id="collection-subtitle" class="text-body-sm opacity-80">— bookmarks organized</p>
+            </div>
+            <div class="relative z-10 flex gap-base">
+              <button data-page="bookmarks" class="nav-link bg-on-primary text-primary px-md py-base rounded text-label-caps uppercase hover:bg-primary-fixed transition-colors cursor-pointer">Browse All</button>
+            </div>
+            <span class="material-symbols-outlined absolute -right-4 -bottom-4 text-[120px] opacity-10 pointer-events-none">bookmark</span>
+          </div>
+          <div class="bg-surface border border-border p-xl rounded-lg flex flex-col gap-md h-[180px]">
+            <div class="flex items-center justify-between">
+              <h4 class="text-headline-md font-headline-md">Quick Access Tags</h4>
+              <span class="material-symbols-outlined text-secondary">tag</span>
+            </div>
+            <div id="tags-cloud" class="flex flex-wrap gap-base overflow-hidden">
+              <span class="text-body-sm text-text-muted">Loading categories...</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- BOOKMARKS PAGE ---- -->
+      <section id="page-bookmarks" class="hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-xl">
+          <div>
+            <h2 class="text-headline-lg font-headline-lg text-on-surface">All Bookmarks</h2>
+            <p id="bm-count-label" class="text-body-sm font-body-sm text-text-muted">Loading...</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-tight">
+            <div class="flex bg-surface border border-border rounded p-1">
+              <button id="sort-date" class="px-md py-base text-label-caps font-label-caps rounded bg-primary text-on-primary">By Date</button>
+              <button id="sort-alpha" class="px-md py-base text-label-caps font-label-caps rounded text-secondary hover:bg-surface-container">A–Z</button>
+              <button id="sort-fav" class="px-md py-base text-label-caps font-label-caps rounded text-secondary hover:bg-surface-container">Favorites</button>
+            </div>
+          </div>
+        </div>
+        <div id="bookmarks-list" class="space-y-base">
+          <div class="text-body-sm text-text-muted py-lg text-center">Loading bookmarks...</div>
+        </div>
+      </section>
+
+      <!-- ---- CATEGORIES PAGE ---- -->
+      <section id="page-categories" class="hidden">
+        <div class="mb-xl">
+          <h2 class="text-headline-lg font-headline-lg text-on-surface">Collections</h2>
+          <p class="text-body-sm text-text-muted mt-base">Bookmarks grouped by category</p>
+        </div>
+        <div id="categories-list" class="space-y-xl">
+          <div class="text-body-sm text-text-muted">Loading...</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Mobile Bottom Nav -->
+  <nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-14 bg-surface border-t border-border z-50">
+    <a data-page="home" class="nav-link text-primary font-bold flex flex-col items-center py-tight active:scale-95 transition-all cursor-pointer">
+      <span class="material-symbols-outlined">home</span>
+      <span class="text-body-sm font-body-sm">Home</span>
+    </a>
+    <a data-page="bookmarks" class="nav-link text-secondary flex flex-col items-center py-tight active:scale-95 transition-all cursor-pointer">
+      <span class="material-symbols-outlined">bookmark</span>
+      <span class="text-body-sm font-body-sm">Bookmarks</span>
+    </a>
+    <a data-page="categories" class="nav-link text-secondary flex flex-col items-center py-tight active:scale-95 transition-all cursor-pointer">
+      <span class="material-symbols-outlined">folder</span>
+      <span class="text-body-sm font-body-sm">Collections</span>
+    </a>
+  </nav>
+
+</div><!-- end main-view -->
+
+<script src="dashboard.js"></script>
+</body>
+</html>

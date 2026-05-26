@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BookmarkSync - Help</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = { darkMode:"class", theme:{ extend:{
+    colors:{"text-muted":"#666666","danger":"#dc2626","background":"#f9f9f9","surface":"#ffffff",
+      "secondary-container":"#e2dfde","surface-container":"#eeeeee","surface-dim":"#dadada",
+      "primary":"#004ac6","border":"#e0e0e0","on-surface":"#1a1c1c","secondary":"#5f5e5e",
+      "surface-container-low":"#f3f3f3","surface-container-high":"#e8e8e8","on-primary":"#ffffff",
+      "success":"#16a34a","primary-fixed":"#dbe1ff","error-container":"#ffdad6",
+      "on-primary-container":"#eeefff","primary-container":"#2563eb","on-primary-fixed":"#00174b",
+      "tertiary":"#943700","dark-background":"#111111","dark-surface":"#1e1e1e","dark-border":"#2e2e2e"},
+    borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},
+    spacing:{"max-content-width":"900px","lg":"16px","md":"12px","sidebar-width":"220px","xl":"24px","base":"4px","tight":"8px"},
+    fontFamily:{"body-sm":["Inter"],"headline-md":["Inter"],"headline-lg":["Inter"],"body-base":["Inter"],"label-caps":["Inter"]},
+    fontSize:{
+      "body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],
+      "headline-md":["18px",{"lineHeight":"24px","fontWeight":"600"}],
+      "headline-lg":["24px",{"lineHeight":"32px","fontWeight":"600"}],
+      "body-base":["14px",{"lineHeight":"20px","fontWeight":"400"}],
+      "label-caps":["11px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"600"}]
+    }
+  }}}
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align:middle; }
+  body { font-family:'Inter', sans-serif; }
+  details > summary { cursor:pointer; list-style:none; }
+  details > summary::-webkit-details-marker { display:none; }
+</style>
+</head>
+<body class="bg-background text-on-surface">
+
+<!-- Sidebar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col pt-xl pb-lg w-sidebar-width border-r border-border bg-surface hidden md:flex z-50">
+  <div class="px-xl mb-xl">
+    <h1 class="text-headline-md font-headline-md font-bold text-primary">BookmarkSync</h1>
+  </div>
+  <nav class="flex-1 space-y-base px-tight">
+    <a href="../index.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high transition-colors text-secondary">
+      <span class="material-symbols-outlined">home</span><span class="text-body-base">Home</span>
+    </a>
+    <a href="../index.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high transition-colors text-secondary">
+      <span class="material-symbols-outlined">bookmark</span><span class="text-body-base">Bookmarks</span>
+    </a>
+    <a href="settings.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high transition-colors text-secondary">
+      <span class="material-symbols-outlined">settings</span><span class="text-body-base">Settings</span>
+    </a>
+    <a href="profile.html" class="flex items-center gap-md px-md py-tight rounded hover:bg-surface-container-high transition-colors text-secondary">
+      <span class="material-symbols-outlined">person</span><span class="text-body-base">Profile</span>
+    </a>
+    <!-- Active: Help -->
+    <a class="flex items-center gap-md px-md py-tight rounded text-primary font-bold border-r-2 border-primary bg-surface-container-low" href="#">
+      <span class="material-symbols-outlined">help</span><span class="text-body-base">Help &amp; Support</span>
+    </a>
+  </nav>
+  <div class="mt-auto px-tight pt-lg border-t border-border">
+    <button id="btn-logout" class="w-full flex items-center gap-md px-md py-tight rounded hover:bg-error-container text-danger">
+      <span class="material-symbols-outlined">logout</span><span class="text-body-sm">Logout</span>
+    </button>
+  </div>
+</aside>
+
+<main class="md:ml-sidebar-width min-h-screen">
+  <header class="h-16 border-b border-border bg-surface flex items-center justify-between px-xl sticky top-0 z-40">
+    <a href="../index.html" class="text-secondary hover:text-primary transition-colors flex items-center gap-base">
+      <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+      <span class="text-body-sm">Back to Dashboard</span>
+    </a>
+  </header>
+
+  <div class="p-xl max-w-max-content-width mx-auto">
+    <div class="mb-xl">
+      <h2 class="text-headline-lg font-headline-lg">Help &amp; Support</h2>
+      <p class="text-body-sm text-text-muted mt-base">Everything you need to know about BookmarkSync</p>
+    </div>
+
+    <!-- Getting Started -->
+    <div class="bg-surface border border-border rounded-lg p-lg mb-xl">
+      <div class="flex items-center gap-md mb-lg">
+        <span class="material-symbols-outlined text-primary">rocket_launch</span>
+        <h3 class="text-headline-md font-headline-md">Getting Started</h3>
+      </div>
+      <ol class="space-y-md">
+        <li class="flex gap-md">
+          <span class="w-6 h-6 rounded-full bg-primary text-on-primary text-[11px] font-bold flex items-center justify-center shrink-0 mt-base">1</span>
+          <div>
+            <p class="text-body-base font-medium">Start the backend server</p>
+            <p class="text-body-sm text-text-muted mt-base">Run <code class="bg-surface-container px-base py-px rounded text-[12px]">cd backend && npm run dev</code> in your terminal. Requires MongoDB running locally or an Atlas URI in <code class="bg-surface-container px-base py-px rounded text-[12px]">.env</code>.</p>
+          </div>
+        </li>
+        <li class="flex gap-md">
+          <span class="w-6 h-6 rounded-full bg-primary text-on-primary text-[11px] font-bold flex items-center justify-center shrink-0 mt-base">2</span>
+          <div>
+            <p class="text-body-base font-medium">Create an account</p>
+            <p class="text-body-sm text-text-muted mt-base">Click Sign Up on the dashboard login page or inside the Chrome extension popup.</p>
+          </div>
+        </li>
+        <li class="flex gap-md">
+          <span class="w-6 h-6 rounded-full bg-primary text-on-primary text-[11px] font-bold flex items-center justify-center shrink-0 mt-base">3</span>
+          <div>
+            <p class="text-body-base font-medium">Load the Chrome extension</p>
+            <p class="text-body-sm text-text-muted mt-base">Go to <code class="bg-surface-container px-base py-px rounded text-[12px]">chrome://extensions/</code>, enable Developer mode, click Load unpacked, and select the <code class="bg-surface-container px-base py-px rounded text-[12px]">extension/</code> folder.</p>
+          </div>
+        </li>
+        <li class="flex gap-md">
+          <span class="w-6 h-6 rounded-full bg-primary text-on-primary text-[11px] font-bold flex items-center justify-center shrink-0 mt-base">4</span>
+          <div>
+            <p class="text-body-base font-medium">Start saving bookmarks</p>
+            <p class="text-body-sm text-text-muted mt-base">Click the extension icon and use the Quick Add button to save the current tab, or manually enter a title and URL.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- FAQ -->
+    <div class="bg-surface border border-border rounded-lg p-lg mb-xl">
+      <div class="flex items-center gap-md mb-lg">
+        <span class="material-symbols-outlined text-primary">quiz</span>
+        <h3 class="text-headline-md font-headline-md">Frequently Asked Questions</h3>
+      </div>
+      <div class="space-y-base divide-y divide-border">
+        <details class="py-md">
+          <summary class="flex items-center justify-between text-body-base font-medium cursor-pointer hover:text-primary transition-colors">
+            Where is my data stored?
+            <span class="material-symbols-outlined text-secondary text-[18px]">expand_more</span>
+          </summary>
+          <p class="text-body-sm text-text-muted mt-md">All bookmarks are stored in your MongoDB database. The JWT token is kept in <code class="bg-surface-container px-base py-px rounded text-[12px]">localStorage</code> (dashboard) and <code class="bg-surface-container px-base py-px rounded text-[12px]">chrome.storage.local</code> (extension). No data is sent to any third party.</p>
+        </details>
+        <details class="py-md">
+          <summary class="flex items-center justify-between text-body-base font-medium cursor-pointer hover:text-primary transition-colors">
+            Why is the extension not syncing?
+            <span class="material-symbols-outlined text-secondary text-[18px]">expand_more</span>
+          </summary>
+          <p class="text-body-sm text-text-muted mt-md">Make sure the backend server is running on port 5000. Check that <code class="bg-surface-container px-base py-px rounded text-[12px]">API_BASE</code> in <code class="bg-surface-container px-base py-px rounded text-[12px]">extension/api.js</code> matches your server address. Reload the extension after any changes.</p>
+        </details>
+        <details class="py-md">
+          <summary class="flex items-center justify-between text-body-base font-medium cursor-pointer hover:text-primary transition-colors">
+            How do I export my bookmarks?
+            <span class="material-symbols-outlined text-secondary text-[18px]">expand_more</span>
+          </summary>
+          <p class="text-body-sm text-text-muted mt-md">Go to Settings → Data Management → Export as JSON. This downloads all your bookmarks as a <code class="bg-surface-container px-base py-px rounded text-[12px]">.json</code> file you can import later or keep as a backup.</p>
+        </details>
+        <details class="py-md">
+          <summary class="flex items-center justify-between text-body-base font-medium cursor-pointer hover:text-primary transition-colors">
+            How do I deploy to production?
+            <span class="material-symbols-outlined text-secondary text-[18px]">expand_more</span>
+          </summary>
+          <p class="text-body-sm text-text-muted mt-md">Deploy the backend to Railway, Render, or Fly.io. Host the dashboard on Vercel or Netlify. Update <code class="bg-surface-container px-base py-px rounded text-[12px]">API_BASE</code> in both the extension and dashboard to your deployed backend URL. Update <code class="bg-surface-container px-base py-px rounded text-[12px]">host_permissions</code> in <code class="bg-surface-container px-base py-px rounded text-[12px]">manifest.json</code> accordingly.</p>
+        </details>
+        <details class="py-md">
+          <summary class="flex items-center justify-between text-body-base font-medium cursor-pointer hover:text-primary transition-colors">
+            Can I use MongoDB Atlas instead of local MongoDB?
+            <span class="material-symbols-outlined text-secondary text-[18px]">expand_more</span>
+          </summary>
+          <p class="text-body-sm text-text-muted mt-md">Yes. Create a free cluster at <a href="https://www.mongodb.com/atlas" target="_blank" class="text-primary hover:underline">mongodb.com/atlas</a>, copy the connection string, and paste it as <code class="bg-surface-container px-base py-px rounded text-[12px]">MONGO_URI</code> in <code class="bg-surface-container px-base py-px rounded text-[12px]">backend/.env</code>.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Keyboard Shortcuts -->
+    <div class="bg-surface border border-border rounded-lg p-lg">
+      <div class="flex items-center gap-md mb-lg">
+        <span class="material-symbols-outlined text-primary">keyboard</span>
+        <h3 class="text-headline-md font-headline-md">Tips</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-md text-body-sm">
+        <div class="flex items-start gap-md p-md bg-surface-container-low border border-border rounded">
+          <span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-base">search</span>
+          <div><p class="font-medium">Search from the top bar</p><p class="text-text-muted mt-base">The search bar on the dashboard and popup filter bookmarks in real time.</p></div>
+        </div>
+        <div class="flex items-start gap-md p-md bg-surface-container-low border border-border rounded">
+          <span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-base">star</span>
+          <div><p class="font-medium">Favorite bookmarks</p><p class="text-text-muted mt-base">Hover a bookmark row and click the star icon to mark it as a favorite. Filter by favorites using the Sort control.</p></div>
+        </div>
+        <div class="flex items-start gap-md p-md bg-surface-container-low border border-border rounded">
+          <span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-base">bolt</span>
+          <div><p class="font-medium">Quick Save</p><p class="text-text-muted mt-base">Use the Quick Save button in the extension to auto-fill the form with the current tab's title and URL.</p></div>
+        </div>
+        <div class="flex items-start gap-md p-md bg-surface-container-low border border-border rounded">
+          <span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-base">folder</span>
+          <div><p class="font-medium">Collections</p><p class="text-text-muted mt-base">Assign a category when saving a bookmark. Use the Collections view to browse bookmarks grouped by category.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-14 bg-surface border-t border-border z-50">
+  <a href="../index.html" class="text-secondary flex flex-col items-center py-tight">
+    <span class="material-symbols-outlined">home</span><span class="text-body-sm">Home</span>
+  </a>
+  <a href="settings.html" class="text-secondary flex flex-col items-center py-tight">
+    <span class="material-symbols-outlined">settings</span><span class="text-body-sm">Settings</span>
+  </a>
+  <a href="#" class="text-primary font-bold flex flex-col items-center py-tight">
+    <span class="material-symbols-outlined">help</span><span class="text-body-sm">Help</span>
+  </a>
+</nav>
+<script>
+  if (localStorage.getItem('bs_theme') === 'dark') document.documentElement.classList.add('dark');
+  document.getElementById('btn-logout').addEventListener('click', () => {
+    localStorage.removeItem('bs_token'); localStorage.removeItem('bs_user');
+    window.location.href = '../index.html';
+  });
+</script>
+</body>
+</html>

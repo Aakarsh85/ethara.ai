@@ -1,16 +1,17 @@
-// Service worker — handles extension lifecycle events
+// ============================================================
+// background.js — Manifest V3 Service Worker
+// ============================================================
 
-// Open popup on install
 chrome.runtime.onInstalled.addListener(() => {
   console.log('BookmarkSync installed');
 });
 
-// Listen for messages from popup (optional — for future keyboard shortcuts)
+// Handle messages from popup (e.g. get current tab)
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'GET_CURRENT_TAB') {
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
       sendResponse({ tab: tabs[0] });
     });
-    return true; // keep channel open for async response
+    return true; // keep message channel open for async response
   }
 });

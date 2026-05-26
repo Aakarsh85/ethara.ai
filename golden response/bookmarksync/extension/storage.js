@@ -1,6 +1,8 @@
-// Local cache so bookmarks load instantly before the API responds
+// ============================================================
+// storage.js — Local bookmark cache (instant load on open)
+// ============================================================
 
-const CACHE_KEY = 'cached_bookmarks';
+const CACHE_KEY = 'bs_cached_bookmarks';
 
 function cacheBookmarks(bookmarks) {
   chrome.storage.local.set({ [CACHE_KEY]: bookmarks });

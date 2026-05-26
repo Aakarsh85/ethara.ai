@@ -2,23 +2,25 @@
   "manifest_version": 3,
   "name": "BookmarkSync",
   "version": "1.0.0",
-  "description": "Save and sync bookmarks to the cloud",
+  "description": "Save and sync bookmarks to the cloud with JWT authentication.",
   "permissions": ["storage", "tabs", "activeTab"],
-  "host_permissions": ["http://localhost:5000/*"],
+  "host_permissions": [
+    "http://localhost:5000/*"
+  ],
   "background": {
     "service_worker": "background.js"
   },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png",
+      "16":  "icons/icon16.png",
+      "48":  "icons/icon48.png",
       "128": "icons/icon128.png"
     }
   },
   "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
+    "16":  "icons/icon16.png",
+    "48":  "icons/icon48.png",
     "128": "icons/icon128.png"
   }
 }
